@@ -1,16 +1,9 @@
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
-using UnityStandardAssets.ImageEffects;
-using UnityEngine.SceneManagement;
 using System;
-using EFT.Weather;
 using System.Collections.Generic;
-using BSG.CameraEffects;
 using HarmonyLib;
-using UnityEngine.Rendering;
 using EFT;
 using EFT.InventoryLogic;
-using System.Reflection;
 using EFT.UI;
 using Comfort.Common;
 using System.IO;
@@ -27,8 +20,8 @@ namespace AmandsSense
     {
         public static LocalPlayer localPlayer;
 
-        public static LayerMask SphereInteractiveLayerMask = LayerMask.GetMask("Interactive");
-        public static LayerMask SphereDeadbodyLayerMask = LayerMask.GetMask("Deadbody");
+        public static LayerMask SphereInteractiveLayerMask;
+        public static LayerMask SphereDeadbodyLayerMask;
 
         public static Dictionary<string, Sprite> LoadedSprites = new Dictionary<string, Sprite>();
         public static Dictionary<string, AudioClip> LoadedAudioClips = new Dictionary<string, AudioClip>();
@@ -58,6 +51,8 @@ namespace AmandsSense
 
         public void Start()
         {
+            SphereInteractiveLayerMask = LayerMask.GetMask("Interactive");
+            SphereDeadbodyLayerMask = LayerMask.GetMask("Deadbody");
             itemsJsonClass = ReadFromJsonFile<ItemsJsonClass>((AppDomain.CurrentDomain.BaseDirectory + "/BepInEx/plugins/Sense/Items.json"));
             ReloadFiles();
             onItemsSensesAdded += ItemsSensesAddedMethod;
